@@ -28,7 +28,7 @@ public class Class_parser {
         //Todo
         long emptyLines = 0;
         long totalLines = 0;
-
+        boolean isComment = false;
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
 
             System.out.println("I can be opened");
@@ -40,6 +40,25 @@ public class Class_parser {
                 if (line.matches("^[\\s&&[^\\n]]*$")) {
                     emptyLines++;
                 }
+                else if(line.startsWith("//")){
+                    this.classe_CLOC++;
+                }
+                else if((line.startsWith("/*") && line.endsWith("*/") )|| (line.startsWith("/**") && line.endsWith("*/"))) {
+                    this.classe_CLOC++;
+                }
+                else if((line.startsWith("/*") && !line.endsWith("*/") )|| (line.startsWith("/**") && !line.endsWith("*/"))){
+                    this.classe_CLOC++;
+                    isComment = true;
+                }
+                else if(isComment){
+                    this.classe_CLOC++;
+                }
+                else if(line.endsWith("*/")){
+                    isComment = false;
+                }
+
+
+
 
             }
         this.classe_LOC = totalLines - emptyLines;
@@ -51,6 +70,7 @@ public class Class_parser {
         System.out.println("I have " + totalLines +" total lines");
         System.out.println("I have " + emptyLines +" empty lines");
         System.out.println("classe_LOC = " + this.classe_LOC);
+        System.out.println("classe_CLOC = " + this.classe_CLOC);
 
 
     }

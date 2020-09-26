@@ -15,24 +15,29 @@ public class Metrics {
 
 
     private static void parse(File file) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(file));
 
-        } catch (IOException ignored) {
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
+        int emptyLines = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
+            System.out.println("I can be opened");
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();//去掉首尾空格
+//统计空行的行数
+                if (line.matches("^[\\s&&[^\\n]]*$")) {
+                    emptyLines++;
                 }
-            }
 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        System.out.println("I have " + emptyLines +" empty lines");
     }
 
-    public static void main(String[] args) {
-        String path = "test.java";
+        public static void main(String[] args) {
+        String path = "test\\IndexFiles.java";
         System.out.println(path);
         File f = new File(path);
         if(path.matches(".*\\.java$")){

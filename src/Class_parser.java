@@ -8,7 +8,7 @@ public class Class_parser {
     File file;
     long classe_LOC;
     long classe_CLOC;
-    long classe_DC;
+    float classe_DC;
 
 
     public Class_parser(File file){
@@ -35,8 +35,15 @@ public class Class_parser {
             String line = "";
             while ((line = reader.readLine()) != null) {
                 totalLines++;
-                line = line.trim(); //remove space before and after
-//                reference https://www.geek-share.com/detail/2782998175.html for regex "^[\\s&&[^\\n]]*$"
+                //remove space before and after
+                line = line.trim();
+
+                /* we dont count "totaly empty lines" even if it is in javadoc /** or bloc comment /*
+                 for example like this bloc is only counted as three lines
+
+                 */
+
+                //reference https://www.geek-share.com/detail/2782998175.html for regex "^[\\s&&[^\\n]]*$"
                 if (line.matches("^[\\s&&[^\\n]]*$")) {
                     emptyLines++;
                 }
@@ -53,16 +60,12 @@ public class Class_parser {
                 else if(isComment){
                     this.classe_CLOC++;
                 }
-                else if(line.endsWith("*/")){
+                if(line.endsWith("*/")){
                     isComment = false;
                 }
-
-
-
-
             }
-        this.classe_LOC = totalLines - emptyLines;
-
+            this.classe_LOC = totalLines - emptyLines;
+            this.classe_DC = (float) (1.0*this.classe_CLOC/this.classe_LOC);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,7 +74,7 @@ public class Class_parser {
         System.out.println("I have " + emptyLines +" empty lines");
         System.out.println("classe_LOC = " + this.classe_LOC);
         System.out.println("classe_CLOC = " + this.classe_CLOC);
-
+        System.out.println("classe_DC = " + this.classe_DC);
 
     }
 

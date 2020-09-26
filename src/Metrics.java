@@ -23,8 +23,8 @@ public class Metrics {
             System.out.println("I can be opened");
             String line = "";
             while ((line = reader.readLine()) != null) {
-                line = line.trim();//去掉首尾空格
-//统计空行的行数
+                line = line.trim(); //remove space before and after
+
                 if (line.matches("^[\\s&&[^\\n]]*$")) {
                     emptyLines++;
                 }
@@ -36,17 +36,20 @@ public class Metrics {
         System.out.println("I have " + emptyLines +" empty lines");
     }
 
-        public static void main(String[] args) {
-        String path = "test\\IndexFiles.java";
-        System.out.println(path);
-        File f = new File(path);
-        if(path.matches(".*\\.java$")){
-            System.out.println("im a java file");
-            parse(f);
-        }else{
+    public static void main(String[] args) {
+    String path = "test";
+    System.out.println(path);
+    File f = new File(path);
+    File[] allFiles = f.listFiles();
+
+    for(File file : allFiles) {
+        if (file.getName().matches(".*\\.java$")) {
+            System.out.println("im a java file : " + file.getName());
+            parse(file);
+        } else {
             System.out.println("not a java file");
         }
-
+    }
     }
 
 }

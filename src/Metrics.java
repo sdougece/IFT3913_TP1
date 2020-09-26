@@ -11,12 +11,14 @@ public class Metrics {
 
     //sorties:
 
-    static String classes = "";
+    static ArrayList<String> classes_names = new ArrayList<String>();
     static long classe_LOC = 0;
-    static long methode_LOC = 0;
     static long classe_CLOC = 0;
-    static long methode_CLOC = 0;
     static long classe_DC = 0;
+
+    static ArrayList<String> methods_names = new ArrayList<String>();
+    static long methode_LOC = 0;
+    static long methode_CLOC = 0;
     static long methode_DC = 0;
 
 
@@ -32,8 +34,18 @@ public class Metrics {
     for(File file : allFiles) {
         if (file.getName().matches(".*\\.java$")) {
             System.out.println("im a java file : " + file.getName());
+
+            //get statistics for this class
             Class_parser c = new Class_parser(file);
             c.get_Class_Stat();
+
+            //get statistics for each method in this class
+            Methods_parser m = new Methods_parser(file);
+            m.get_Methods_Stat();
+
+
+
+
         } else {
             System.out.println("not a java file");
         }

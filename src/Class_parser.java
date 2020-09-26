@@ -5,26 +5,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Class_parser {
-
-    static long classe_LOC = 0;
-    static long classe_CLOC = 0;
-    static long classe_DC = 0;
-    static long emptyLines = 0;
+    File file;
+    long classe_LOC = 0;
+    long classe_CLOC = 0;
+    long classe_DC = 0;
+    long emptyLines = 0;
 
     public Class_parser(File file){
-
+        this.file = file;
     }
 
 
     //parse one class just for class statistics
-    public static ArrayList<Long> get_Class_Stat(File file){
+    public void get_Class_Stat(){
 
 
         //calculate stats for one class
         //Todo
 
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
 
             System.out.println("I can be opened");
             String line = "";
@@ -43,13 +43,6 @@ public class Class_parser {
 
 
 
-
-        ArrayList<Long> stats = new ArrayList<Long>();
-        stats.add(classe_LOC);
-        stats.add(classe_CLOC);
-        stats.add(classe_DC);
-
-        return stats;
     }
 
 

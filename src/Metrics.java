@@ -20,29 +20,6 @@ public class Metrics {
     static long methode_DC = 0;
 
 
-    private static void parse(File file) {
-
-        int emptyLines = 0;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-
-            System.out.println("I can be opened");
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                line = line.trim(); //remove space before and after
-//                reference https://www.geek-share.com/detail/2782998175.html for regex "^[\\s&&[^\\n]]*$"
-                if (line.matches("^[\\s&&[^\\n]]*$")) {
-                    emptyLines++;
-                }
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("I have " + emptyLines +" empty lines");
-    }
-
-
 
 
 
@@ -55,7 +32,8 @@ public class Metrics {
     for(File file : allFiles) {
         if (file.getName().matches(".*\\.java$")) {
             System.out.println("im a java file : " + file.getName());
-            parse(file);
+            Class_parser c = new Class_parser(file);
+            c.get_Class_Stat();
         } else {
             System.out.println("not a java file");
         }

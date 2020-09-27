@@ -22,7 +22,8 @@ public class Metrics {
     static long methode_DC = 0;
 
 
-
+    static ArrayList<Record_class> report_class = new ArrayList<Record_class>();
+    static ArrayList<Record_methods> report_methods = new ArrayList<Record_methods>();
 
 
     public static void main(String[] args) {

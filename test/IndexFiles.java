@@ -1,25 +1,18 @@
-//source : https://www.youtube.com/watch?v=tNFoWyvTF8U
-
-/** just for test for IFT3913
-
-hello
-this is test
-
-this is for test of comments
-
-*/
+//sss
+//sss
 
 
 public class IndexFiles {
+
+
+	
 	/** just for test for IFT3913
-
-hello
-this is test
-
-this is for test of comments
-
-*/
+	hello
+	this is test
+	this is for test of comments
+	*/
     static void indexDocs(final IndexWriter writer, Path path) throws IOException {
+    	//ddd
         if (Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                 @Override
@@ -34,8 +27,13 @@ this is for test of comments
                     }
             );
         } else {
+        	//this is a comments for test        	
+        	//this is a comments for test 
+        	//this is a comments for test 
             indexDoc(writer, path, Files.getLastModifiedTime(path).toMillis());
         }
+        //ddd
+        //ddd
     }
 
 
@@ -43,9 +41,7 @@ this is for test of comments
 
 hello
 this is test
-
 this is for test of comments
-
 */
     static void indexDoc(IndexWriter writer, Path file, long lastModified) throws IOException {
         try (InputStream stream = Files.newInputStream(file)) {
@@ -61,7 +57,7 @@ this is for test of comments
             } else {
                 System.out.println("updating " + file);
                 writer.updateDocument(new Term("path", file.toString()), doc);
-
+//
             }
 
 
@@ -110,7 +106,7 @@ this is for test of comments
                 iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
             }
-
+//
             IndexWriter writer = new IndexWriter(dir, iwc);
             indexDocs(writer, docDir);
 

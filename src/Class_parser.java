@@ -46,9 +46,9 @@ public class Class_parser {
 
                  */
 
-                //reference https://www.geek-share.com/detail/2782998175.html for regex "^[\\s&&[^\\n]]*$"
-                if (line.matches("^[\\s&&[^\\n]]*$")) {
+                if (line.isEmpty()) {
                     emptyLines++;
+
                 }
                 else if(line.startsWith("//")){
                     this.classe_CLOC++;
@@ -74,14 +74,14 @@ public class Class_parser {
             e.printStackTrace();
         }
 
-//        System.out.println("Class path is  " + this.class_path);
-//        System.out.println("Class name is  " + this.class_name);
-//
-//        System.out.println("I have " + totalLines +" total lines");
-//        System.out.println("I have " + emptyLines +" empty lines");
-//        System.out.println("classe_LOC = " + this.classe_LOC);
-//        System.out.println("classe_CLOC = " + this.classe_CLOC);
-//        System.out.println("classe_DC = " + this.classe_DC);
+        System.out.println("Class path is  " + this.class_path);
+        System.out.println("Class name is  " + this.class_name);
+
+        System.out.println("I have " + totalLines +" total lines");
+        System.out.println("I have " + emptyLines +" empty lines");
+        System.out.println("classe_LOC = " + this.classe_LOC);
+        System.out.println("classe_CLOC = " + this.classe_CLOC);
+        System.out.println("classe_DC = " + this.classe_DC);
 
     }
 

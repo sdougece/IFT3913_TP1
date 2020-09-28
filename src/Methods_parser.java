@@ -36,9 +36,46 @@ public class Methods_parser {
     }
 
     public String get_method_signature(String line){
-        String[] strings = line.split("\\)");
-        return strings[0]+")";
+        String name;
+        String[] sigs;
+        //get method name
 
+        String[] strings = line.split("\\)");
+        String[] m = strings[0].split(" ");
+
+        int index = 0;
+
+        for(int i=0; i < m.length; i++){
+
+            if(m[i].contains("(")){
+                index = i;
+            }
+        }
+
+        String[] m1 = m[index].split("\\(");
+        name = m1[0];
+
+        String params = line.substring(line.indexOf("(") +1, line.indexOf(")"));
+
+
+        String[] temp = params.split(",");
+        String[] temp2;
+        String p = "";
+
+        for(int i=0; i<temp.length;i++){
+
+            temp2=temp[i].split(" ");
+            for(int j=0; j<temp2.length-1; j++){
+                if(j==0){
+                    p += temp2[j];
+                }else {
+                    p += "_" + temp2[j];
+                }
+            }
+
+        }
+
+        return name+"_"+p;
     }
 
 
@@ -48,9 +85,10 @@ public class Methods_parser {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
 
-            System.out.println(this.class_name + "  can be opened");
+            System.out.println(this.class_name);
 
             String line = "";
+            long comment_before = 0;
             long method_LOC = 0;
             long method_CLOC = 0;
             float method_DC = 0;
@@ -60,61 +98,136 @@ public class Methods_parser {
             long emptyLines = 0;
             long totalLines = 0;
 
+
+            //not just get out of a method but already out
+            boolean still_out = true;
+            boolean lineComment = false;
+            boolean in_class = false;
             //calculate stats for one method
             while ((line = reader.readLine()) != null) {
-                boolean current_isComment = false;
+                //remove space before and after
+                line = line.trim();
+
+
+
+                //before a method
                 //if line before a method is comment, add into method_CLOC
                 //stop accumulation when there is a line not comment show up.(ex. a global variable)
-                if (line.matches("^[\\s&&[^\\n]]*$")) {
+                if (line.isEmpty()) {
                     emptyLines++;
-                }else if(line.startsWith("//")&& !in_method){
-                    method_CLOC++;
-                    current_isComment=true;
+
+                }else if(line.startsWith("//") && !in_method){
+                    comment_before++;
+                    lineComment=true;
                 }
                 else if(!in_method && (line.startsWith("/*") && line.endsWith("*/") )|| (line.startsWith("/**") && line.endsWith("*/"))) {
-                    method_CLOC++;
-                    current_isComment=true;
+                    comment_before++;
+                    lineComment=true;
                 }
                 else if(!in_method && (line.startsWith("/*") && !line.endsWith("*/") )|| (line.startsWith("/**") && !line.endsWith("*/"))){
-                    method_CLOC++;
+                    comment_before++;
                     isComment = true;
-                    current_isComment=true;
+                    lineComment=true;
                 }
                 else if(!in_method && isComment){
-                    method_CLOC++;
-                    current_isComment=true;
+                    comment_before++;
+                    lineComment=true;
                 }
                 if(!in_method && line.endsWith("*/")){
                     isComment = false;
-                    current_isComment=true;
-                }
 
+                    lineComment=true;
+                }
+                if(!in_method && !line.isEmpty() &&  !lineComment){
+                    comment_before =0;
+                    lineComment=false;
+                }
 
                 int brace_balance = get_brace_balance(line);
                 total_brace_balance += brace_balance;
 
+                if(total_brace_balance ==1 && !in_class){
+                    comment_before = 0;
+                    in_class = true;
+                }
 
-
-                if(total_brace_balance == 2 && !in_method){
+                if(total_brace_balance == 2 && !in_method) {
                     //start a method
-                    System.out.println("method_CLOC before the method is "+method_CLOC );
+                    System.out.println();
+                    System.out.println("Method  : "+ get_method_signature(line));
                     in_method = true;
-                    System.out.println("Method found : "+ get_method_signature(line));
+                    still_out = false;
+                }
 
+                if(total_brace_balance == 2){
+
+                    if (line.isEmpty()) {
+                        emptyLines++;
+                    }
+                    else if(line.startsWith("//")){
+                        method_CLOC++;
+                    }
+                    else if((line.startsWith("/*") && line.endsWith("*/")) || (line.startsWith("/**") && line.endsWith("*/"))) {
+                        method_CLOC++;
+                    }
+                    else if((line.startsWith("/*") && !line.endsWith("*/") )|| (line.startsWith("/**") && !line.endsWith("*/"))){
+                        method_CLOC++;
+                        isComment = true;
+                    }
+                    else if(isComment){
+                        method_CLOC++;
+                    }
+                    if(line.endsWith("*/")){
+                        isComment = false;
+                    }
                 }
                 else if(total_brace_balance >2){
-                    //in a method
+                    if (line.isEmpty()) {
+                        emptyLines++;
+                    }
+                    else if(line.startsWith("//")){
+                        method_CLOC++;
+                    }
+                    else if((line.startsWith("/*") && line.endsWith("*/")) || (line.startsWith("/**") && line.endsWith("*/"))) {
+                        method_CLOC++;
+                    }
+                    else if((line.startsWith("/*") && !line.endsWith("*/") )|| (line.startsWith("/**") && !line.endsWith("*/"))){
+                        method_CLOC++;
+                        isComment = true;
+                    }
+                    else if(isComment){
+                        method_CLOC++;
+                    }
+                    if(line.endsWith("*/")){
+                        isComment = false;
+                    }
                 }
                 else if(total_brace_balance == 1 && in_method){
-                    //end a method
+                    //end of a method
                     in_method = false;
-//                    System.out.println("method ends");
-                    method_CLOC = 0;
-
+                    totalLines++;
                 }
 
+                if(in_method){
+                    totalLines++;
+                }
+                if(!in_method && !still_out){
+                    still_out = true;
+                    method_LOC = totalLines - emptyLines + method_CLOC;
+                    System.out.println("method_LOC =  "+ method_LOC );
+                    System.out.println("method_CLOC before = " +comment_before);
+                    System.out.println("method_CLOC inside = " +method_CLOC);
+                    method_CLOC += comment_before;
+                    System.out.println("method_CLOC total = "+ method_CLOC);
+
+                    method_DC = (float)(1.0*method_CLOC/method_LOC);
 
 
+                    System.out.println("method_DC = " + method_DC);
+
+                    method_CLOC = 0;
+                    comment_before = 0;
+                }
 
 
 

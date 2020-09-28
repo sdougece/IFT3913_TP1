@@ -22,13 +22,22 @@ public class Metrics {
     static long methode_DC = 0;
 
 
-    static ArrayList<Record_class> report_class = new ArrayList<Record_class>();
-    static ArrayList<Record_methods> report_methods = new ArrayList<Record_methods>();
+    static ArrayList<String[]> classReport = new ArrayList<String[]>();
+    static ArrayList<String[]> methodReport = new ArrayList<String[]>();
 
 
     public static void main(String[] args) {
     String chemin = "test";
     System.out.println(chemin);
+
+
+    // adding test data to classReport & methodReport
+        classReport.add (new String[] {"chemin1","nomClasse1","LOC1","CLOC1","DC1"});
+        classReport.add (new String[] {"chemin2","nomClasse2","LOC2","CLOC2","DC2"});
+
+        methodReport.add (new String[] {"chemin1","nomClasse1","nomMethode1","LOC1","CLOC1","DC1"});
+        methodReport.add (new String[] {"chemin2","nomClasse2","nomMethode1","LOC2","CLOC2","DC2"});
+
     File f = new File(chemin);
     File[] allFiles = f.listFiles();
 
@@ -53,6 +62,12 @@ public class Metrics {
                 }
             }
         }
+
+        Output_classes_csv Occ = new Output_classes_csv(classReport);
+        Occ.Create_Class_Csv();
+        Output_methods_csv Omc = new Output_methods_csv(methodReport);
+        Omc.Create_Method_Csv();
+
     }
 
 }

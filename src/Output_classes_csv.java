@@ -5,8 +5,10 @@ public class Output_classes_csv {
     ArrayList<String[]> report = new ArrayList<String[]>();
 
     public Output_classes_csv(ArrayList<String[]> report){
-       this.report = report;
+
+        this.report = report;
     }
+
     //create class.csv with data from report arraylist
 
     public void Create_Class_Csv(){
@@ -24,8 +26,8 @@ public class Output_classes_csv {
             csvWriter.append("\n");
 
 
-            for (int i = 0; i < report.size(); i++) {
-                csvWriter.append(String.join(",", report.get(i)));
+            for (String[] strings : report) {
+                csvWriter.append(String.join(",", strings));
                 csvWriter.append("\n");
             }
 

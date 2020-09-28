@@ -9,10 +9,13 @@ public class Class_parser {
     long classe_LOC;
     long classe_CLOC;
     float classe_DC;
-
+    String class_name;
+    String class_path;
 
     public Class_parser(File file){
         this.file = file;
+        this.class_path = file.getPath();
+        this.class_name = file.getName();
         this.classe_LOC = 0;
         this.classe_CLOC = 0;
         this.classe_DC = 0;
@@ -70,12 +73,22 @@ public class Class_parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Class path is  " + this.class_path);
+        System.out.println("Class name is  " + this.class_name);
+
         System.out.println("I have " + totalLines +" total lines");
         System.out.println("I have " + emptyLines +" empty lines");
         System.out.println("classe_LOC = " + this.classe_LOC);
         System.out.println("classe_CLOC = " + this.classe_CLOC);
         System.out.println("classe_DC = " + this.classe_DC);
 
+    }
+
+    public String[] class_output(){
+
+        return (new String[] {this.class_path, this.class_name,String.valueOf(this.classe_LOC)
+        ,String.valueOf(this.classe_CLOC),String.valueOf(this.classe_DC)});
     }
 
 

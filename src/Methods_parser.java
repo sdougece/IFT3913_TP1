@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public class Methods_parser {
     File file;
     String class_name;
-    ArrayList<String> methods_names = new ArrayList<String>();
     String methods_path;
+    ArrayList<String> methods_names = new ArrayList<String>();
     ArrayList<Long> methods_LOC= new ArrayList<Long>();
     ArrayList<Long> methods_CLOC= new ArrayList<Long>();
     ArrayList<Float> methods_DC= new ArrayList<Float>();
@@ -86,7 +86,7 @@ public class Methods_parser {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
 
             System.out.println(this.class_name);
-
+            String method_name = "";
             String line = "";
             long comment_before = 0;
             long method_LOC = 0;
@@ -154,7 +154,8 @@ public class Methods_parser {
                 if(total_brace_balance == 2 && !in_method) {
                     //start a method
                     System.out.println();
-                    System.out.println("Method  : "+ get_method_signature(line));
+                    method_name = get_method_signature(line);
+                    System.out.println("Method  : "+ method_name);
                     in_method = true;
                     still_out = false;
                 }
@@ -225,11 +226,15 @@ public class Methods_parser {
 
                     System.out.println("method_DC = " + method_DC);
 
+
+                    this.methods_names.add(method_name);
+                    this.methods_LOC.add(method_LOC);
+                    this.methods_CLOC.add(method_CLOC);
+                    this.methods_DC.add(method_DC);
+
                     method_CLOC = 0;
                     comment_before = 0;
                 }
-
-
 
 
             }
@@ -238,6 +243,24 @@ public class Methods_parser {
             e.printStackTrace();
         }
 
+    }
+
+    public ArrayList<String[]> methods_output(){
+        int num_methods = this.methods_names.size();
+
+        ArrayList<String[]> report = new ArrayList<String[]>();
+
+        for(int i=0; i<num_methods;i++){
+
+            report.add(new String[]{String.valueOf(this.methods_path), String.valueOf(this.class_name), this.methods_names.get(i),
+                    String.valueOf(this.methods_LOC.get(i)),String.valueOf(this.methods_CLOC.get(i)),String.valueOf(this.methods_DC.get(i))});
+
+
+        }
+
+
+
+        return report;
     }
 
 

@@ -12,8 +12,7 @@ this is test
 
 
 public class IndexFiles {
-    static void indexDocs(final IndexWriter writer, Path path)
-            throws IOException {
+    static void indexDocs(final IndexWriter writer, Path path) throws IOException {
         if (Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                 @Override

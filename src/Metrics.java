@@ -28,11 +28,8 @@ public class Metrics {
 
     public static void main(String[] args) {
     String chemin = "test";
-    System.out.println(chemin);
-
 
     // adding test data to classReport & methodReport
-
         methodReport.add (new String[] {"chemin1","nomClasse1","nomMethode1","LOC1","CLOC1","DC1"});
         methodReport.add (new String[] {"chemin2","nomClasse2","nomMethode1","LOC2","CLOC2","DC2"});
 
@@ -45,9 +42,10 @@ public class Metrics {
                     System.out.println("im a java file : " + file.getName());
 
                     //get statistics for this class
-                    Class_parser c = new Class_parser(file);
-                    c.get_Class_Stat();
-                    classReport.add(c.class_output());
+//                    Class_parser c = new Class_parser(file);
+//                    c.get_Class_Stat();
+//                    classReport.add(c.class_output());
+
                     //get statistics for each method in this class
                     Methods_parser m = new Methods_parser(file);
                     m.get_Methods_Stat();

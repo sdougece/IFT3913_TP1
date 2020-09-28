@@ -34,7 +34,7 @@ public class Class_parser {
         boolean isComment = false;
         try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
 
-            System.out.println("I can be opened");
+            System.out.println(this.class_name + "  can be opened");
             String line = "";
             while ((line = reader.readLine()) != null) {
                 totalLines++;
@@ -74,14 +74,14 @@ public class Class_parser {
             e.printStackTrace();
         }
 
-        System.out.println("Class path is  " + this.class_path);
-        System.out.println("Class name is  " + this.class_name);
-
-        System.out.println("I have " + totalLines +" total lines");
-        System.out.println("I have " + emptyLines +" empty lines");
-        System.out.println("classe_LOC = " + this.classe_LOC);
-        System.out.println("classe_CLOC = " + this.classe_CLOC);
-        System.out.println("classe_DC = " + this.classe_DC);
+//        System.out.println("Class path is  " + this.class_path);
+//        System.out.println("Class name is  " + this.class_name);
+//
+//        System.out.println("I have " + totalLines +" total lines");
+//        System.out.println("I have " + emptyLines +" empty lines");
+//        System.out.println("classe_LOC = " + this.classe_LOC);
+//        System.out.println("classe_CLOC = " + this.classe_CLOC);
+//        System.out.println("classe_DC = " + this.classe_DC);
 
     }
 

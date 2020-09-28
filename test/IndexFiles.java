@@ -5,13 +5,20 @@
 hello
 this is test
 
-
-
+this is for test of comments
 
 */
 
 
 public class IndexFiles {
+	/** just for test for IFT3913
+
+hello
+this is test
+
+this is for test of comments
+
+*/
     static void indexDocs(final IndexWriter writer, Path path) throws IOException {
         if (Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
@@ -31,6 +38,15 @@ public class IndexFiles {
         }
     }
 
+
+/** just for test for IFT3913
+
+hello
+this is test
+
+this is for test of comments
+
+*/
     static void indexDoc(IndexWriter writer, Path file, long lastModified) throws IOException {
         try (InputStream stream = Files.newInputStream(file)) {
             Document doc = new Document();
@@ -53,6 +69,9 @@ public class IndexFiles {
 
     }
 
+// just for test for IFT3913
+
+//hello
 
     public static void count() {
         try {

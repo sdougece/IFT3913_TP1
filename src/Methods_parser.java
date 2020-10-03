@@ -97,6 +97,7 @@ public class Methods_parser {
             int total_brace_balance = 0;
             long emptyLines = 0;
             long totalLines = 0;
+            int method_cc = 0;
 
 
             //not just get out of a method but already out
@@ -158,6 +159,7 @@ public class Methods_parser {
                     System.out.println("Method  : "+ method_name);
                     in_method = true;
                     still_out = false;
+                    method_cc++;
                 }
 
                 if(total_brace_balance == 2){
@@ -178,8 +180,11 @@ public class Methods_parser {
                     else if(isComment){
                         method_CLOC++;
                     }
-                    if(line.endsWith("*/")){
+                    else if(line.endsWith("*/")){
                         isComment = false;
+                    }
+                    if(line.startsWith("if") || line.startsWith("for") || line.startsWith("while") || line.startsWith("case")  || line.startsWith("try1")){
+                        method_cc++;
                     }
                 }
                 else if(total_brace_balance >2){
@@ -199,8 +204,11 @@ public class Methods_parser {
                     else if(isComment){
                         method_CLOC++;
                     }
-                    if(line.endsWith("*/")){
+                    else if(line.endsWith("*/")){
                         isComment = false;
+                    }
+                    if(line.startsWith("if") || line.startsWith("for") || line.startsWith("while") || line.startsWith("case")  || line.startsWith("try")){
+                        method_cc++;
                     }
                 }
                 else if(total_brace_balance == 1 && in_method){
@@ -225,6 +233,7 @@ public class Methods_parser {
 
 
                     System.out.println("method_DC = " + method_DC);
+                    System.out.println("method_CC = " + method_cc);
 
 
                     this.methods_names.add(method_name);
@@ -234,6 +243,7 @@ public class Methods_parser {
 
                     method_CLOC = 0;
                     comment_before = 0;
+                    method_cc = 0;
                 }
 
 

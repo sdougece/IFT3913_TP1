@@ -9,6 +9,8 @@ public class Methods_parser {
     ArrayList<Long> methods_LOC= new ArrayList<Long>();
     ArrayList<Long> methods_CLOC= new ArrayList<Long>();
     ArrayList<Float> methods_DC= new ArrayList<Float>();
+    ArrayList<Integer> methods_CC= new ArrayList<Integer>();
+    ArrayList<Float> methods_BC= new ArrayList<Float>();
 
 
     public Methods_parser(File file){
@@ -183,7 +185,7 @@ public class Methods_parser {
                     else if(line.endsWith("*/")){
                         isComment = false;
                     }
-                    if(line.startsWith("if") || line.startsWith("for") || line.startsWith("while") || line.startsWith("case")  || line.startsWith("try1")){
+                    if(line.startsWith("if") || line.startsWith("else if") || line.startsWith("for") || line.startsWith("while") || line.startsWith("case")  || line.contains(" catch ") || line.contains("}catch ")){
                         method_cc++;
                     }
                 }
@@ -207,7 +209,7 @@ public class Methods_parser {
                     else if(line.endsWith("*/")){
                         isComment = false;
                     }
-                    if(line.startsWith("if") || line.startsWith("for") || line.startsWith("while") || line.startsWith("case")  || line.startsWith("try")){
+                    if(line.startsWith("if") || line.startsWith("else if") || line.startsWith("for") || line.startsWith("while") || line.startsWith("case")  || line.contains(" catch ") || line.contains("}catch ")){
                         method_cc++;
                     }
                 }
@@ -240,6 +242,8 @@ public class Methods_parser {
                     this.methods_LOC.add(method_LOC);
                     this.methods_CLOC.add(method_CLOC);
                     this.methods_DC.add(method_DC);
+                    this.methods_CC.add(method_cc);
+                    this.methods_BC.add(method_DC/method_cc);
 
                     method_CLOC = 0;
                     comment_before = 0;
@@ -263,7 +267,7 @@ public class Methods_parser {
         for(int i=0; i<num_methods;i++){
 
             report.add(new String[]{String.valueOf(this.methods_path), String.valueOf(this.class_name), this.methods_names.get(i),
-                    String.valueOf(this.methods_LOC.get(i)),String.valueOf(this.methods_CLOC.get(i)),String.valueOf(this.methods_DC.get(i))});
+                    String.valueOf(this.methods_LOC.get(i)),String.valueOf(this.methods_CLOC.get(i)),String.valueOf(this.methods_DC.get(i)),String.valueOf(this.methods_CC.get(i)),String.valueOf(this.methods_BC.get(i))});
 
 
         }

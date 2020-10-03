@@ -24,6 +24,10 @@ public class Output_methods_csv {
             csvWriter.append("methode_CLOC");
             csvWriter.append(",");
             csvWriter.append("methode_DC");
+            csvWriter.append(",");
+            csvWriter.append("CC");
+            csvWriter.append(",");
+            csvWriter.append("methode_BC");
             csvWriter.append("\n");
 
 

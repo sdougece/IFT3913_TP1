@@ -23,6 +23,10 @@ public class Output_classes_csv {
             csvWriter.append("classe_CLOC");
             csvWriter.append(",");
             csvWriter.append("classe_DC");
+            csvWriter.append(",");
+            csvWriter.append("WMC");
+            csvWriter.append(",");
+            csvWriter.append("classe_BC");
             csvWriter.append("\n");
 
 

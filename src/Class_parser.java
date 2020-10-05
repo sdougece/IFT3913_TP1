@@ -9,7 +9,7 @@ public class Class_parser {
     long classe_LOC;
     long classe_CLOC;
     float classe_DC;
-    int classe_WMC;
+    float classe_WMC;
     float classe_BC;
     String class_name;
     String class_path;
@@ -21,7 +21,7 @@ public class Class_parser {
         this.classe_LOC = 0;
         this.classe_CLOC = 0;
         this.classe_DC = 0;
-        this.classe_WMC =1; // Set to 1 for testing. To init to 0
+        this.classe_WMC =0;
         this.classe_BC = 0;
     }
 
@@ -93,6 +93,10 @@ public class Class_parser {
 
         return (new String[] {this.class_path, this.class_name,String.valueOf(this.classe_LOC)
         ,String.valueOf(this.classe_CLOC),String.valueOf(this.classe_DC),String.valueOf(this.classe_WMC),String.valueOf(this.classe_BC)});
+    }
+
+    public void setClass_WMC(float imported_WMC){
+        this.classe_WMC = imported_WMC;
     }
 
 

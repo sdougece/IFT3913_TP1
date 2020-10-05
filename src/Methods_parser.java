@@ -5,6 +5,7 @@ public class Methods_parser {
     File file;
     String class_name;
     String methods_path;
+    Float class_WMC;
     ArrayList<String> methods_names = new ArrayList<String>();
     ArrayList<Long> methods_LOC= new ArrayList<Long>();
     ArrayList<Long> methods_CLOC= new ArrayList<Long>();
@@ -17,7 +18,7 @@ public class Methods_parser {
         this.file = file;
         this.methods_path = file.getPath();
         this.class_name = file.getName();
-
+        this.class_WMC = (float)0.0;
     }
 
 
@@ -100,6 +101,7 @@ public class Methods_parser {
             long emptyLines = 0;
             long totalLines = 0;
             int method_cc = 0;
+
 
 
             //not just get out of a method but already out
@@ -232,6 +234,7 @@ public class Methods_parser {
                     System.out.println("method_CLOC total = "+ method_CLOC);
 
                     method_DC = (float)(1.0*method_CLOC/method_LOC);
+                    class_WMC += method_cc;
 
 
                     System.out.println("method_DC = " + method_DC);
@@ -275,6 +278,10 @@ public class Methods_parser {
 
 
         return report;
+    }
+
+    public float getClass_WMC(){
+        return this.class_WMC;
     }
 
 

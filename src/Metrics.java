@@ -38,16 +38,21 @@ public class Metrics {
                 if (file.getName().matches(".*\\.java$")) {
                     System.out.println("im a java file : " + file.getName());
 
-                    //get statistics for this class
-                    Class_parser c = new Class_parser(file);
-                    c.get_Class_Stat();
-                    classReport.add(c.class_output());
 
                     //get statistics for each method in this class
                     Methods_parser m = new Methods_parser(file);
                     m.get_Methods_Stat();
 
                     methodsReport = m.methods_output();
+
+
+                    //get statistics for this class
+                    Class_parser c = new Class_parser(file);
+                    c.setClass_WMC(m.getClass_WMC());
+                    c.get_Class_Stat();
+                    
+                    classReport.add(c.class_output());
+
 
 
 

@@ -1,0 +1,4 @@
+chemin,class,methode,methode_LOC,methode_CLOC,methode_DC,CC,methode_BC
+C:\Users\zhouy\Desktop\IFT3913\test\src\test\java\org\jfree\data\xy\YWithXIntervalTest.java,YWithXIntervalTest.java,testEquals_,20,3,0.15,1,0.15
+C:\Users\zhouy\Desktop\IFT3913\test\src\test\java\org\jfree\data\xy\YWithXIntervalTest.java,YWithXIntervalTest.java,testCloning_,4,3,0.75,1,0.75
+C:\Users\zhouy\Desktop\IFT3913\test\src\test\java\org\jfree\data\xy\YWithXIntervalTest.java,YWithXIntervalTest.java,testSerialization_,5,3,0.6,1,0.6

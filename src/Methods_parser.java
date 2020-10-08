@@ -56,27 +56,37 @@ public class Methods_parser {
         }
 
         String[] m1 = m[index].split("\\(");
+        if(m1.length==0) return "";
         name = m1[0];
 
-        String params = line.substring(line.indexOf("(") +1, line.indexOf(")"));
-
-
-        String[] temp = params.split(",");
-        String[] temp2;
         String p = "";
+        if(line.indexOf(")") > line.indexOf("(") +1 ){
 
-        for(int i=0; i<temp.length;i++){
+            String params = line.substring(line.indexOf("(") +1, line.indexOf(")"));
 
-            temp2=temp[i].split(" ");
-            for(int j=0; j<temp2.length-1; j++){
-                if(j==0){
-                    p += temp2[j];
-                }else {
-                    p += "_" + temp2[j];
+
+            String[] temp = params.split(",");
+            String[] temp2;
+
+
+            for (String s : temp) {
+
+                temp2 = s.split(" ");
+                for (int j = 0; j < temp2.length - 1; j++) {
+                    if (j == 0) {
+                        p += temp2[j];
+                    } else {
+                        p += "_" + temp2[j];
+                    }
                 }
-            }
 
+            }
         }
+        else{
+            p = "";
+        }
+
+
 
         return name+"_"+p;
     }
@@ -169,7 +179,7 @@ public class Methods_parser {
                 if(total_brace_balance == 2){
 
                     if (line.isEmpty()) {
-                        emptyLines++;
+//                        emptyLines++;
                     }
                     else if(line.startsWith("//")){
                         method_CLOC++;
@@ -225,8 +235,12 @@ public class Methods_parser {
                     totalLines++;
                 }
                 if(!in_method && !still_out){
+
                     still_out = true;
-                    method_LOC = totalLines - emptyLines + method_CLOC;
+                    method_LOC = totalLines + method_CLOC;
+//                    System.out.println("totalLines =  "+ totalLines );
+//                    System.out.println("emptyLines =  "+ emptyLines );
+
                     System.out.println("method_LOC =  "+ method_LOC );
                     System.out.println("method_CLOC before = " +comment_before);
                     System.out.println("method_CLOC inside = " +method_CLOC);
@@ -251,6 +265,8 @@ public class Methods_parser {
                     method_CLOC = 0;
                     comment_before = 0;
                     method_cc = 0;
+                    emptyLines =0;
+                    totalLines=0;
                 }
 
 

@@ -24,41 +24,54 @@ public class Metrics {
 
     static ArrayList<String[]> classReport = new ArrayList<String[]>();
     static ArrayList<String[]> methodsReport = new ArrayList<String[]>();
+    static ArrayList<String> allPaths = new ArrayList<String>();
+
+    public static void getAllFiles(File file){
+
+        File[] allFiles = file.listFiles();
+        if (allFiles != null) {
+            for(File f : allFiles) {
+
+                if(f.isDirectory()){
+                    getAllFiles(f);
+                }else{
+                    allPaths.add(f.getAbsolutePath());
+                }
+                }
+        }
+    }
+
 
 
     public static void main(String[] args) {
-    String chemin = "test";
+    String mainPath = "test";
 
 
-    File f = new File(chemin);
-    File[] allFiles = f.listFiles();
+    File file1 = new File(mainPath);
+    getAllFiles(file1);
 
-        if (allFiles != null) {
-            for(File file : allFiles) {
-                if (file.getName().matches(".*\\.java$")) {
-                    System.out.println("im a java file : " + file.getName());
+        for (String path : allPaths) {
+            System.out.println(path);
+            File eachFile = new File(path);
 
+            if (eachFile.getName().matches(".*\\.java$")) {
+                System.out.println("im a java file : " + eachFile.getName());
 
-                    //get statistics for each method in this class
-                    Methods_parser m = new Methods_parser(file);
-                    m.get_Methods_Stat();
+                //get statistics for each method in this class
+                Methods_parser m = new Methods_parser(eachFile);
+                m.get_Methods_Stat();
 
-                    methodsReport = m.methods_output();
+                methodsReport = m.methods_output();
 
+                //get statistics for this class
+                Class_parser c = new Class_parser(eachFile);
+                c.setClass_WMC(m.getClass_WMC());
+                c.get_Class_Stat();
 
-                    //get statistics for this class
-                    Class_parser c = new Class_parser(file);
-                    c.setClass_WMC(m.getClass_WMC());
-                    c.get_Class_Stat();
-                    
-                    classReport.add(c.class_output());
+                classReport.add(c.class_output());
 
-
-
-
-                } else {
-                    System.out.println("not a java file");
-                }
+            } else {
+                System.out.println("not a java file");
             }
         }
 

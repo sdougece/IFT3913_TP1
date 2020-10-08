@@ -1,5 +1,0 @@
-chemin,class,methode,methode_LOC,methode_CLOC,methode_DC
-test\IndexFiles.java,IndexFiles.java,indexDocs_final_IndexWriter_Path,23,11,0.47826087
-test\IndexFiles.java,IndexFiles.java,indexDoc_IndexWriter_Path_long,28,6,0.21428572
-test\IndexFiles.java,IndexFiles.java,count_,38,2,0.05263158
-test\IndexFiles.java,IndexFiles.java,main_String[],51,1,0.019607844

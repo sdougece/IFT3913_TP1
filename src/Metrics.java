@@ -61,7 +61,8 @@ public class Metrics {
                 Methods_parser m = new Methods_parser(eachFile);
                 m.get_Methods_Stat();
 
-                methodsReport = m.methods_output();
+                ArrayList<String[]> methodsReportLine = m.methods_output();
+                methodsReport.addAll(methodsReportLine);
 
                 //get statistics for this class
                 Class_parser c = new Class_parser(eachFile);

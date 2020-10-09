@@ -1,3 +1,6 @@
+// Dougece Prophete  matricule :
+//Yifu Zhou          matricule : 20092235
+
 import java.io.FileWriter;
 import java.util.ArrayList;
 

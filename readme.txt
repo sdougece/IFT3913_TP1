@@ -4,6 +4,8 @@ Yifu Zhou
 Matricule :20092235
 
 
+Lien github : https://github.com/sdougece/IFT3913_TP1
+
 Pour utiliser notre JAR , veuillez suivre les étapes suivantes: 
 
 1.	Créer un répertoire "test" au même niveau où le JAR se trouve. 

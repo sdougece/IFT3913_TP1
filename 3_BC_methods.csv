@@ -1,0 +1,4 @@
+chemin,class,methode,methode_LOC,methode_CLOC,methode_DC,CC,methode_BC
+C:\Users\zhouy\Desktop\IFT3913\test\src\main\java\org\jfree\chart\axis\LogAxis.java,LogAxis.java,calculateValueNoINF_double,10,0,0.0,3,0.0
+C:\Users\zhouy\Desktop\IFT3913\test\src\main\java\org\jfree\chart\axis\LogAxis.java,LogAxis.java,resizeRange_double_double,3,0,0.0,1,0.0
+C:\Users\zhouy\Desktop\IFT3913\test\src\main\java\org\jfree\chart\axis\NumberTickUnitSource.java,NumberTickUnitSource.java,getLargerTickUnit_TickUnit,9,0,0.0,2,0.0

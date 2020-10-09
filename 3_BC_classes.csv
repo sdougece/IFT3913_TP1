@@ -1,0 +1,4 @@
+chemin,class,classe_LOC,classe_CLOC,classe_DC,WMC,classe_BC
+C:\Users\zhouy\Desktop\IFT3913\test\src\main\java\org\jfree\chart\plot\XYPlot.java,XYPlot.java,5070,2336,0.4607495,620.0,7.4314437E-4
+C:\Users\zhouy\Desktop\IFT3913\test\src\main\java\org\jfree\chart\plot\CategoryPlot.java,CategoryPlot.java,4630,2226,0.48077753,535.0,8.9864957E-4
+C:\Users\zhouy\Desktop\IFT3913\test\src\main\java\org\jfree\data\general\DatasetUtils.java,DatasetUtils.java,2199,740,0.3365166,319.0,0.001054911

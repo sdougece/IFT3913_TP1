@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Metrics {
@@ -41,6 +42,76 @@ public class Metrics {
         }
     }
 
+    public static int getMinClassBC(ArrayList<String[]> arr){
+
+        int l = arr.size();
+        int index = 0;
+        float min = Float.parseFloat(arr.get(0)[6]);
+        for(int i=1; i<l; i++){
+            float t = Float.parseFloat(arr.get(i)[6]);
+            if(t < min){
+                min = t;
+                index = i;
+            }
+
+
+
+        }
+        return index;
+    }
+
+    public static int getMinMethodBC(ArrayList<String[]> arr){
+
+        int l = arr.size();
+        int index = 0;
+        float min = Float.parseFloat(arr.get(0)[7]);
+        for(int i=1; i<l; i++){
+            float t = Float.parseFloat(arr.get(i)[7]);
+            if(t < min){
+                min = t;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public static void output_3class_3methods(){
+
+
+        ArrayList<String[]> worstBC_classReport = new ArrayList<String[]>();
+        ArrayList<String[]> worstBC_methodsReport = new ArrayList<String[]>();
+
+        for(int i=0;i<3;i++){
+            int index = getMinClassBC(classReport);
+            worstBC_classReport.add(classReport.get(index));
+            classReport.remove(index);
+
+        }
+
+
+
+        for(int i=0;i<3;i++){
+            int index = getMinMethodBC(methodsReport);
+            worstBC_methodsReport.add(methodsReport.get(index));
+            methodsReport.remove(index);
+
+        }
+
+
+        Output_classes_csv Occ = new Output_classes_csv(worstBC_classReport);
+
+        Occ.Create_Class_Csv("3_BC_classes.csv");
+
+
+        Output_methods_csv Omc = new Output_methods_csv(worstBC_methodsReport);
+
+
+        Omc.Create_Method_Csv("3_BC_methods.csv");
+
+
+
+
+    }
 
 
     public static void main(String[] args) {
@@ -77,9 +148,16 @@ public class Metrics {
         }
 
         Output_classes_csv Occ = new Output_classes_csv(classReport);
-        Occ.Create_Class_Csv();
+
+        Occ.Create_Class_Csv("classes.csv");
+
+
         Output_methods_csv Omc = new Output_methods_csv(methodsReport);
-        Omc.Create_Method_Csv();
+
+
+        Omc.Create_Method_Csv("methodes.csv");
+
+        output_3class_3methods();
 
     }
 

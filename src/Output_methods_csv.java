@@ -10,9 +10,9 @@ public class Output_methods_csv {
     }
     //create class.csv with data from report arraylist
 
-    public void Create_Method_Csv(){
+    public void Create_Method_Csv(String path){
         try {
-            FileWriter csvWriter = new FileWriter("methodes.csv");
+            FileWriter csvWriter = new FileWriter(path);
             csvWriter.append("chemin");
             csvWriter.append(",");
             csvWriter.append("class");

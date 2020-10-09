@@ -262,6 +262,8 @@ public class Methods_parser {
                     this.methods_CC.add(method_cc);
                     this.methods_BC.add(method_DC/method_cc);
 
+                    System.out.println("methods_BC = " + methods_BC);
+
                     method_CLOC = 0;
                     comment_before = 0;
                     method_cc = 0;

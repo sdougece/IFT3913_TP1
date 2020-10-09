@@ -121,7 +121,7 @@ public class Metrics {
     String mainPath = "test";
 
 
-    File file1 = new File(mainPath);
+    File file1 = new File(".",mainPath);
     getAllFiles(file1);
 
         for (String path : allPaths) {
